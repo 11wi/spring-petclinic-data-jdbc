@@ -16,27 +16,26 @@ gradle init --type pom
 
 # edit build.gradle
 ---
-plugins {
-   id 'application'
-mainClassName='org.springframework.samples.petclinic.PetClinicApplication'
----
+    id 'war'
 
+apply plugin: "io.spring.dependency-management"
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+---
 # add src/main/resources/logback-spring.xml
 # add src/main/resources/logback/config.xml
 
-rm -rf .gradle
 ./gradlew clean build
 
-sudo mkdir -p /logs
-sudo chmod 777 /logs
+mkdir -p ./logs
 
-./gradlew run
+./gradlew bootRun
 
 # edit build.gradle
 ---
 docker {
     name "${project.name}:${project.version}"
-    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.jar'
+    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.war'
     tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
 }
 ---
@@ -61,6 +60,9 @@ java -jar build/libs/*
 ## k8s deploy
 
 ```shell script
-kubectl apply -f kubernetes-manifests
-
+# https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
+kubectl apply -f kubernetes-manifests/storageclass.yaml
+kubectl apply -f kubernetes-manifests/ingress-nginx.yaml
+kubectl apply -f kubernetes-manifests/mysql.yaml
+kubectl apply -f kubernetes-manifests/petclinic.yaml
 ```

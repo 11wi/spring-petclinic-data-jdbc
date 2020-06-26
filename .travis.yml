@@ -24,7 +24,7 @@ cache:
     - '$HOME/.gradle'
 
 script:
-  - ./gradlew assemble
+  - ./gradlew build
   - docker login -u $DOCKER_HUB_ID -p $DOCKER_HUB_PW
   - ./gradlew docker
   - ./gradlew dockerTagDockerHub

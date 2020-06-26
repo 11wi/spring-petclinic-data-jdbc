@@ -4,13 +4,12 @@
 
 plugins {
     id 'maven-publish'
-    id 'application'
     id "com.palantir.docker" version "0.22.1"
     id "org.springframework.boot" version "2.3.0.RELEASE"
+    id 'war'
 }
 
-apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.spring.dependency-management"
 
 repositories {
     mavenCentral()
@@ -37,6 +36,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java:8.0.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RC1'
     testImplementation 'org.testcontainers:mysql:1.14.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 
@@ -57,10 +57,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-mainClassName = 'org.springframework.samples.petclinic.PetClinicApplication'
-
 docker {
     name "${project.name}:${project.version}"
-    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.jar'
+    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.war'
     tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
+}
+
+springBoot {
+    mainClassName = 'org.springframework.samples.petclinic.PetClinicApplication'
 }
