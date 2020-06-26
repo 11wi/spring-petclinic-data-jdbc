@@ -4,7 +4,7 @@ metadata:
   name: mysql
   namespace: default
   labels:
-    app: mysql
+    app: petclinic
 type: Opaque
 data:
   password: cGV0Y2xpbmlj
@@ -17,7 +17,7 @@ metadata:
   name: mysql
   namespace: default
   labels:
-    app: mysql
+    app: petclinic
 spec:
   ports:
     - port: 3306
@@ -32,7 +32,7 @@ metadata:
   name: mysql
   namespace: default
   labels:
-    app: mysql
+    app: petclinic
 spec:
   selector:
     matchLabels:
@@ -58,12 +58,22 @@ spec:
           ports:
             - containerPort: 3306
               name: mysql
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
           volumeMounts:
-            - name: mysql-pv
+            - name: mysql
               mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:
-        name: mysql-pv
+        name: mysql
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: hostpath
