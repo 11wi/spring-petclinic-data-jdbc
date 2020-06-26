@@ -42,7 +42,7 @@ metadata:
   name: petclinic
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: petclinic
@@ -57,36 +57,36 @@ spec:
           image: docker.io/angju8/gradle-docker-example:2.1.0.BUILD-SNAPSHOT
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
-              name: petclinic
+            - name: petclinic
+              containerPort: 8080
           volumeMounts:
             - mountPath: /tmp
               name: logs
           readinessProbe:
             httpGet:
-              path: /actuator/shutdown
+              path: /actuator/health
               port: petclinic
             successThreshold: 1
             failureThreshold: 1
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 3
           livenessProbe:
             httpGet:
-              path: /actuator/shutdown
+              path: /actuator/health
               port: petclinic
             successThreshold: 1
             failureThreshold: 1
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 3
           resources:
             requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
       volumes:
         - name: logs
           hostPath:

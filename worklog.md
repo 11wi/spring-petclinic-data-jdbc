@@ -24,6 +24,12 @@ apply plugin: "io.spring.dependency-management"
 ---
 # add src/main/resources/logback-spring.xml
 # add src/main/resources/logback/config.xml
+# fix src/main/resources/application.properties
+---
+spring.datasource.url=jdbc:mysql://mysql.default.svc.cluster.local
+logging.config=classpath:logback-spring.xml
+server.shutdown.grace-period=30s
+---
 
 ./gradlew clean build
 
@@ -39,6 +45,10 @@ docker {
     tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
 }
 ---
+
+# Dockerfile
+# useradd --uid 1000
+
 
 ./gradlew docker --info
 
@@ -61,8 +71,12 @@ java -jar build/libs/*
 
 ```shell script
 # https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
+mkdir -p /tmp/logs
+# hostpath provision
 kubectl apply -f kubernetes-manifests/storageclass.yaml
 kubectl apply -f kubernetes-manifests/ingress-nginx.yaml
+# statefuleset, passwd는 secret으로
 kubectl apply -f kubernetes-manifests/mysql.yaml
+# volumes hostpath로, livenessProbe, sigterm 받는 api가 이미 있음. SpringContextShutdownHook 
 kubectl apply -f kubernetes-manifests/petclinic.yaml
 ```

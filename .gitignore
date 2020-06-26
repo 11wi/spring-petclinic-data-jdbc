@@ -16,3 +16,4 @@ _site/
 .idea/
 build/
 *.log
+.gradle/

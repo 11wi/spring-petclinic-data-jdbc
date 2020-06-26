@@ -21,10 +21,6 @@ https://kubernetes.io/ko/docs/tutorials/stateful-application/mysql-wordpress-per
 
 https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
 
-* statefulset 타입
-* passwd는 secret으로
-* spring.datasource.url=jdbc:mysql://mysql.default.svc.cluster.local
-
 
 # .travis
 
