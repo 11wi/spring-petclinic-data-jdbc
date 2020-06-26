@@ -2,7 +2,9 @@
 
 https://atoz-develop.tistory.com/entry/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-PetClinic-%EB%B9%8C%EB%93%9C-%EB%B0%8F-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0
 https://pipe0502.tistory.com/entry/maven-wrapper-install
-
+https://blog.leocat.kr/notes/2020/01/23/gradle-create-executable-jar-with-spring-boot
+https://blog.leocat.kr/notes/2017/10/12/spring-boot-packaging-executable-jar-war
+https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#publishing-your-application
 
 # maven error
 

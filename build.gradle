@@ -3,12 +3,14 @@
  */
 
 plugins {
-    id 'java'
     id 'maven-publish'
     id 'application'
     id "com.palantir.docker" version "0.22.1"
-    id("org.springframework.boot") version "2.3.0.RELEASE"
+    id "org.springframework.boot" version "2.3.0.RELEASE"
 }
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 
 repositories {
     mavenCentral()
@@ -37,6 +39,7 @@ dependencies {
     testImplementation 'org.testcontainers:mysql:1.14.1'
 }
 
+
 group = 'org.springframework.samples'
 version = '2.1.0.BUILD-SNAPSHOT'
 description = 'petclinic'
@@ -60,11 +63,4 @@ docker {
     name "${project.name}:${project.version}"
     files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.jar'
     tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
-}
-
-jar {
-    manifest {
-        attributes "Main-Class": "$mainClassName"
-    }
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
