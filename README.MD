@@ -1,5 +1,6 @@
 # spring-petclinic-data-jdbc on k8s
 
+[![Build Status](https://travis-ci.org/11wi/spring-petclinic-data-jdbc.svg?branch=master)](https://travis-ci.org/11wi/spring-petclinic-data-jdbc)
 
 ## env
 * mac os 10.14.6
