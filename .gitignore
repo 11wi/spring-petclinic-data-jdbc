@@ -14,3 +14,4 @@ target/*
 _site/
 
 .idea/
+build/
