@@ -6,6 +6,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'application'
+    id "com.palantir.docker" version "0.22.1"
 }
 
 repositories {
@@ -53,3 +54,9 @@ tasks.withType(JavaCompile) {
 }
 
 mainClassName='org.springframework.samples.petclinic.PetClinicApplication'
+
+docker {
+    name "${project.name}:${project.version}"
+    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.jar'
+    tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
+}

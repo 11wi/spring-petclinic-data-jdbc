@@ -1,64 +1,52 @@
-# 프로젝트 build
+# codes
 
-https://atoz-develop.tistory.com/entry/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-PetClinic-%EB%B9%8C%EB%93%9C-%EB%B0%8F-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0
-https://pipe0502.tistory.com/entry/maven-wrapper-install
+```
+brew cask install homebrew/cask-versions/adoptopenjdk8
+jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
+jenv versions
+jenv global 1.8
+jenv versions
 
+cd /Users/admin/IdeaProjects/spring-petclinic-data-jdbc
 
-mvnw package
+gradle init --type pom
 
-# maven error
+# edit build.gradle
+---
+plugins {
+   id 'application'
+mainClassName='org.springframework.samples.petclinic.PetClinicApplication'
+---
 
-maven setting에서 always update snapshots 체크
+# add src/main/resources/logback-spring.xml
+# add src/main/resources/logback/config.xml
 
+rm -rf .gradle
+./gradlew assemble
 
-# mysql
+sudo mkdir -p /logs
+sudo chmod 777 /logs
 
-https://kubernetes.io/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
-https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
+./gradlew run
 
-* statefulset 타입
-* passwd는 secret으로
-
-
-
-# .travis는 무엇?
-
-https://mobicon.tistory.com/323
-
-
-# 무중단 업데이트
-
-https://kubernetes.io/blog/2018/04/30/zero-downtime-deployment-kubernetes-jenkins/
-https://www.haproxy.com/blog/rolling-updates-and-blue-green-deployments-with-kubernetes-and-haproxy/
-https://tech.kakao.com/2018/12/24/kubernetes-deploy/
-
-
-
-# sigterm
-
-terminationGracePeriodSeconds
-
-func connectionCleanupHook(cp *redis.Pool) {
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	signal.Notify(c, syscall.SIGTERM)
-	signal.Notify(c, syscall.SIGKILL)
-	go func() {
-		<-c
-		cp.Close()
-		os.Exit(0)
-	}()
+# edit build.gradle
+---
+docker {
+    name "${project.name}:${project.version}"
+    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.jar'
+    tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
 }
+---
 
-# app yaml 설계
+./gradlew docker --info
 
-https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes
+./gradlew dockerTagDockerHub
 
-무중단배포 - RollingUpdate, maxSurge
+./gradlew dockerPushDockerHub
 
-프로세스 계정 - ??
+# end of local test
 
+# make .travis.yml with gradlew commands tested above
+# and push repo
 
-# gracefulshutdown
-
-https://heowc.dev/2018/12/27/spring-boot-graceful-shutdown/
+```

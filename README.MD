@@ -3,9 +3,8 @@
 
 ## env
 * mac os 10.14.6
-* docker desktop 2.3.0
+* docker 19.03
 * docker desktop k8s 1.16.5 
-* skafflod
 
 
 ## commands
