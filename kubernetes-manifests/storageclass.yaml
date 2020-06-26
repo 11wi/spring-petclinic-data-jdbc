@@ -2,14 +2,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"},"name":"hostpath"},"provisioner":"docker.io/hostpath","reclaimPolicy":"Delete","volumeBindingMode":"Immediate"}
     storageclass.kubernetes.io/is-default-class: "true"
-  creationTimestamp: "2020-06-25T09:03:05Z"
   name: hostpath
-  resourceVersion: "457"
-  selfLink: /apis/storage.k8s.io/v1/storageclasses/hostpath
-  uid: 061f0869-4386-459e-a26d-4932b16a4dc2
 provisioner: docker.io/hostpath
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

@@ -1,6 +1,9 @@
 # codes
 
-```
+
+## ci
+
+```shell script
 brew cask install homebrew/cask-versions/adoptopenjdk8
 jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
 jenv versions
@@ -22,7 +25,7 @@ mainClassName='org.springframework.samples.petclinic.PetClinicApplication'
 # add src/main/resources/logback/config.xml
 
 rm -rf .gradle
-./gradlew assemble
+./gradlew clean build
 
 sudo mkdir -p /logs
 sudo chmod 777 /logs
@@ -48,5 +51,16 @@ docker {
 
 # make .travis.yml with gradlew commands tested above
 # and push repo
+
+
+java -jar build/libs/*
+ 
+# https://mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
+```
+
+## k8s deploy
+
+```shell script
+kubectl apply -f kubernetes-manifests
 
 ```

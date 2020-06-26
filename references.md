@@ -58,7 +58,7 @@ https://docs.travis-ci.com/user/languages/java/
 https://www.reimaginer.me/entry/Travis%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-Spring-boot-Docker-%EC%9E%90%EB%8F%99%ED%99%94-CICD
 http://blog.naver.com/PostView.nhn?blogId=indy9052&logNo=221080561915&parentCategoryNo=&categoryNo=8&viewDate=&isShowPopularPosts=false&from=postView
 https://tomgregory.com/automating-docker-builds-with-gradle/
-
+https://travis-ci.community/t/install-of-oracle-jdk-8-failing/3038/8
 
 
 # war vs jar
@@ -91,7 +91,3 @@ https://perfectacle.github.io/2018/07/22/spring-boot-2-log/
 # app yaml 설계
 
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes
-
-무중단배포 - RollingUpdate, maxSurge
-
-프로세스 계정 - dockerfile로 useradd
