@@ -49,6 +49,10 @@ https://tech.kakao.com/2018/12/24/kubernetes-deploy/
 
 # sigterm
 
+https://heowc.dev/2018/12/27/spring-boot-graceful-shutdown/
+
+https://spring.io/blog/2020/05/15/spring-boot-2-3-0-available-now
+
 https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-terminating-with-grace
 
 https://docs.spring.io/spring-boot/docs/2.3.0.RC1/reference/htmlsingle/#boot-features-graceful-shutdown
@@ -96,11 +100,6 @@ https://www.codeprimers.com/health-check-api-in-spring-boot-application/
 
 https://spring.io/blog/2020/03/25/liveness-and-readiness-probes-with-spring-boot
 
-# gracefulshutdown
-
-https://heowc.dev/2018/12/27/spring-boot-graceful-shutdown/
-
-https://spring.io/blog/2020/05/15/spring-boot-2-3-0-available-now
 
 # container user
 
