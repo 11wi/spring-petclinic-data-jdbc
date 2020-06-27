@@ -14,7 +14,7 @@ spec:
           - path: /
             backend:
               serviceName: petclinic
-              servicePort: http
+              servicePort: 80
 
 ---
 
@@ -30,7 +30,7 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: petclinic
+      targetPort: 8080
   selector:
     app: petclinic
 
@@ -54,30 +54,30 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: petclinic
-          image: docker.io/angju8/gradle-docker-example:2.1.0.BUILD-SNAPSHOT
+          image: docker.io/angju8/petclinic:latest
           imagePullPolicy: Always
           ports:
-            - name: petclinic
+            - name: http
               containerPort: 8080
           volumeMounts:
             - mountPath: /tmp
               name: logs
           readinessProbe:
             httpGet:
-              path: /actuator/health
-              port: petclinic
+              path: /manage/health/liveness
+              port: 8080
             successThreshold: 1
-            failureThreshold: 1
-            initialDelaySeconds: 120
+            failureThreshold: 3
+            initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 3
           livenessProbe:
             httpGet:
-              path: /actuator/health
-              port: petclinic
+              path: /manage/health/liveness
+              port: 8080
             successThreshold: 1
-            failureThreshold: 1
-            initialDelaySeconds: 120
+            failureThreshold: 3
+            initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 3
           resources:

@@ -14,7 +14,7 @@ cd /Users/admin/IdeaProjects/spring-petclinic-data-jdbc
 
 gradle init --type pom
 
-# edit build.gradle
+# tomcat dead, edit build.gradle
 ---
     id 'war'
 
@@ -22,8 +22,8 @@ apply plugin: "io.spring.dependency-management"
 
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 ---
-# add src/main/resources/logback-spring.xml
-# add src/main/resources/logback/config.xml
+# add src/main/resources/logback/console.xml
+# add src/main/resources/logback/file.xml
 # fix src/main/resources/application.properties
 ---
 spring.datasource.url=jdbc:mysql://mysql.default.svc.cluster.local
@@ -31,13 +31,13 @@ logging.config=classpath:logback-spring.xml
 server.shutdown.grace-period=30s
 ---
 
-./gradlew clean build
+./gradlew clean mavenbuild
 
 mkdir -p ./logs
 
 ./gradlew bootRun
 
-# edit build.gradle
+# docker operation, edit build.gradle
 ---
 docker {
     name "${project.name}:${project.version}"
@@ -49,6 +49,9 @@ docker {
 # Dockerfile
 # useradd --uid 1000
 
+# jar file not executable.
+java -jar build/libs/*
+# use spring gradle plugin
 
 ./gradlew docker --info
 
@@ -59,12 +62,27 @@ docker {
 # end of local test
 
 # make .travis.yml with gradlew commands tested above
-# and push repo
+# and push repo.
+# travis build success
+```
 
+```shell script
+# css file not exits...
+# upgrade container, edit build.gradle
+---
+    id 'com.google.cloud.tools.jib' version '2.4.0'
+jib {
+    to.image = 'angju8/petclinic'
+    container {
+        jvmFlags = ['-Xms512m', '-Xdebug', '-Xmy:flag=jib-rules']
+        mainClass = 'org.springframework.samples.petclinic.PetClinicApplication'
+        ports = ['8080']
+        user='1000:1000'
+        volumes=['/tmp']
+    }
+}
+---
 
-java -jar build/libs/*
- 
-# https://mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
 ```
 
 ## k8s deploy

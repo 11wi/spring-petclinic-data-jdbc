@@ -3,19 +3,22 @@
  */
 
 plugins {
-    id 'maven-publish'
-    id "com.palantir.docker" version "0.22.1"
+    id 'java'
     id "org.springframework.boot" version "2.3.0.RELEASE"
-    id 'war'
+    id 'com.google.cloud.tools.jib' version '2.4.0'
 }
-
 apply plugin: "io.spring.dependency-management"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
     maven{url = uri("https://maven.springframework.org/milestone") }
     maven{url = uri("https://maven.springframework.org/snapshot") }
 }
+
+apply plugin: 'maven'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.0.RC1'
@@ -27,7 +30,6 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:6.4.1'
     implementation 'com.github.ben-manes.caffeine:caffeine:2.8.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:2.2.2.RELEASE'
-    implementation 'com.wavefront:wavefront-spring-boot-starter:2.0.0-RC1'
     implementation 'org.webjars:webjars-locator-core:0.45'
     implementation 'org.webjars:jquery:2.2.4'
     implementation 'org.webjars:jquery-ui:1.11.4'
@@ -36,33 +38,15 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java:8.0.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RC1'
     testImplementation 'org.testcontainers:mysql:1.14.1'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
-
-group = 'org.springframework.samples'
-version = '2.1.0.BUILD-SNAPSHOT'
-description = 'petclinic'
-sourceCompatibility = '1.8'
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
+jib {
+    to.image = 'angju8/petclinic'
+    container {
+        jvmFlags = ['-Xms128m', '-Xdebug']
+        mainClass = 'org.springframework.samples.petclinic.PetClinicApplication'
+        ports = ['8080']
+        user='1000:1000'
+        volumes=['/tmp']
     }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-docker {
-    name "${project.name}:${project.version}"
-    files 'build/libs/spring-petclinic-data-jdbc-2.1.0.BUILD-SNAPSHOT.war'
-    tag 'DockerHub', "angju8/gradle-docker-example:${project.version}"
-}
-
-springBoot {
-    mainClassName = 'org.springframework.samples.petclinic.PetClinicApplication'
 }

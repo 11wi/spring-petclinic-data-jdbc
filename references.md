@@ -1,7 +1,5 @@
 # 프로젝트 build
 
-https://atoz-develop.tistory.com/entry/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-PetClinic-%EB%B9%8C%EB%93%9C-%EB%B0%8F-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0
-
 https://pipe0502.tistory.com/entry/maven-wrapper-install
 
 https://blog.leocat.kr/notes/2020/01/23/gradle-create-executable-jar-with-spring-boot
@@ -9,6 +7,12 @@ https://blog.leocat.kr/notes/2020/01/23/gradle-create-executable-jar-with-spring
 https://blog.leocat.kr/notes/2017/10/12/spring-boot-packaging-executable-jar-war
 
 https://docs.spring.io/spring-boot/docs/2.3.0.RC1/gradle-plugin/reference/html/
+
+https://gc.hosting.kr/blog-serverless-jib2/
+
+https://github.com/dkorotych/gradle-maven-exec-plugin
+
+https://medium.com/@gaemi/spring-boot-%EA%B3%BC-docker-with-jib-657d32a6b1f0
 
 # maven error
 
@@ -20,6 +24,10 @@ maven setting에서 always update snapshots 체크
 https://kubernetes.io/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
 
 https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
+
+# ingress
+
+https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
 
 
 # .travis
@@ -43,8 +51,11 @@ https://tech.kakao.com/2018/12/24/kubernetes-deploy/
 
 https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-terminating-with-grace
 
-terminationGracePeriodSeconds
+https://docs.spring.io/spring-boot/docs/2.3.0.RC1/reference/htmlsingle/#boot-features-graceful-shutdown
 
+https://github.com/spring-projects/spring-framework/blob/master/spring-context/src/main/java/org/springframework/context/support/AbstractApplicationContext.java#L941
+
+```shell script
 func connectionCleanupHook(cp *redis.Pool) {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -56,7 +67,7 @@ func connectionCleanupHook(cp *redis.Pool) {
 		os.Exit(0)
 	}()
 }
-
+```
 
 # ci - travis gradle
 
@@ -82,6 +93,8 @@ https://travis-ci.community/t/install-of-oracle-jdk-8-failing/3038/8
 https://supawer0728.github.io/2018/05/12/spring-actuator/
 
 https://www.codeprimers.com/health-check-api-in-spring-boot-application/
+
+https://spring.io/blog/2020/03/25/liveness-and-readiness-probes-with-spring-boot
 
 # gracefulshutdown
 
